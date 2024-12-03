@@ -1,4 +1,10 @@
-**Alunos:** Lucas de Lima Benvenuti / 20030714
+**Alunos:** 
+
+LUCAS DE LIMA BENVENUTI / 20030714
+SAMUEL FAGUNDES CESCA / 22877161
+VINICIUS MARTINS DOS SANTOS / 22901219
+SAMANTHA DELL VECCHIO ESTEVES / 22871941
+RENAN OLIVEIRA DA SILVA / 22020962
 
 ## 1. Descrição do Projeto
 
@@ -120,7 +126,6 @@ Após se tornar líder, o nó começa a enviar mensagens de `AdicionarEntradas` 
           time.sleep(0.1)
           if time.time() >= tempo_falha and self.estado != 'Falho':
               self.simular_falha()
-      # Resto do código...
   ```
 
 ### 4.2. Resposta do Sistema a Falhas
