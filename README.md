@@ -1,7 +1,7 @@
-# README.md
+README.md
 
-# Aluno: Lucas de Lima Benvenuti
-# R.A: 20030714
+Aluno: Lucas de Lima Benvenuti
+R.A: 20030714
 
 1. Descrição do Projeto e do Algoritmo Implementado
 
