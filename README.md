@@ -1,5 +1,3 @@
-# Implementação do Algoritmo de Consenso Raft
-
 **Aluno:** Lucas de Lima Benvenuti  
 **R.A:** 20030714
 
