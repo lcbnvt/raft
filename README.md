@@ -120,7 +120,6 @@ Após se tornar líder, o nó começa a enviar mensagens de `AdicionarEntradas` 
           time.sleep(0.1)
           if time.time() >= tempo_falha and self.estado != 'Falho':
               self.simular_falha()
-      # Resto do código...
   ```
 
 ### 4.2. Resposta do Sistema a Falhas
