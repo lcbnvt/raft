@@ -119,6 +119,8 @@ Após se tornar líder, o nó começa a enviar mensagens de `AdicionarEntradas` 
   - Fechando o terminal onde o nó está sendo executado.
   - Isso simula uma falha abrupta do nó.
 
+![teste](./teste_erro_socket.png)
+
 - **Modificando o Código para Falha Programada:**
 
   No arquivo `node.py`, você pode adicionar o seguinte código para simular uma falha após 30 segundos:
@@ -140,3 +142,17 @@ Após se tornar líder, o nó começa a enviar mensagens de `AdicionarEntradas` 
 - Quando o temporizador de eleição de um seguidor expira, ele inicia uma nova eleição.
 - Um novo líder é eleito entre os nós restantes.
 - O sistema continua operando com o novo líder.
+
+def executar(self):
+    while True:
+        time.sleep(0.1)
+        with self.trava:
+            tempo_atual = time.time()
+            if self.id_no == 5000 and self.estado != 'Falho':
+                # Simula a falha do líder após 30 segundos
+                if not hasattr(self, 'falha_programada'):
+                    self.falha_programada = tempo_atual + 30
+                elif tempo_atual >= self.falha_programada:
+                    self.simular_falha()
+                    continue
+
