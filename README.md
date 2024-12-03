@@ -1,7 +1,6 @@
-**Aluno:** Lucas de Lima Benvenuti  
-**R.A:** 20030714
+**Alunos:** Lucas de Lima Benvenuti / 20030714
 
-## 1. Descrição do Projeto e do Algoritmo Implementado
+## 1. Descrição do Projeto
 
 **Descrição do Projeto:** Este projeto é uma implementação simplificada do algoritmo de consenso distribuído Raft em Python!
 
@@ -9,7 +8,7 @@
 
 **Algoritmo Implementado:** O algoritmo Raft foi escolhido por sua facilidade de entendimento em comparação com outros algoritmos de consenso.
 
-## 2. Instruções para Configurar o Ambiente e Executar o Código
+## 2. Configuração do Ambiente e Execução do Código
 
 ### 2.1. Pré-requisitos
 
@@ -42,7 +41,7 @@
 
 4. **Repita os passos em novos terminais** para iniciar outros nós, garantindo que cada nó tenha um ID único e conheça os IDs dos seus pares.
 
-## 3. Implementação
+## 3. Fases do Algoritmo na Implementação
 
 ### 3.1. Estados dos Nós
 
