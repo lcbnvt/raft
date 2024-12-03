@@ -6,7 +6,7 @@
 
 **Objetivo:** O objetivo é simular um ambiente distribuído onde múltiplos nós colaboram para manter um log replicado e consistente, garantindo que todos os nós concordem sobre o estado do sistema.
 
-**Algoritmo Implementado:** O algoritmo Raft foi escolhido por sua facilidade de entendimento em comparação com outros algoritmos de consenso.
+**Algoritmo Implementado:** O algoritmo Raft foi escolhido por ser mais fácil de implementar em comparação com outros algoritmos de consenso.
 
 ## 2. Configuração do Ambiente e Execução do Código
 
