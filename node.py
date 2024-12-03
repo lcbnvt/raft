@@ -14,27 +14,30 @@ class No:
         self.log = []
         self.indice_comprometido = 0
         self.ultimo_aplicado = 0
-        self.pares = pares  
+        self.pares = pares  # Lista de endereços dos nós pares
         self.id_lider = None
         self.temporizador_eleicao = self.redefinir_temporizador_eleicao()
         self.trava = threading.Lock()
         self.thread_execucao = threading.Thread(target=self.executar)
         self.thread_execucao.start()
-        self.votos_recebidos = 0  
-        self.ativo = True  
+        self.votos_recebidos = 0  # Contagem de votos recebidos
+        self.ativo = True  # Indica se o nó está ativo ou falho
 
     def redefinir_temporizador_eleicao(self):
         return time.time() + random.uniform(5, 10)
 
     def executar(self):
-        tempo_falha = time.time() + random.uniform(20, 30)  
-        tempo_recuperacao = tempo_falha + random.uniform(10, 15)  
         while True:
             time.sleep(0.1)
             with self.trava:
                 tempo_atual = time.time()
                 if self.estado != 'Falho':
-                    if tempo_atual >= tempo_falha:
+                    if not hasattr(self, 'tempo_falha'):
+                        # Definir o próximo tempo de falha
+                        self.tempo_falha = tempo_atual + random.uniform(20, 30)
+                    elif tempo_atual >= self.tempo_falha:
+                        # Definir o próximo tempo de recuperação
+                        self.tempo_recuperacao = tempo_atual + random.uniform(10, 15)
                         self.simular_falha()
                         continue
                     if self.estado == 'Líder':
@@ -42,8 +45,11 @@ class No:
                     if tempo_atual >= self.temporizador_eleicao:
                         self.iniciar_eleicao()
                 else:
-                    if tempo_atual >= tempo_recuperacao:
+                    if tempo_atual >= self.tempo_recuperacao:
                         self.recuperar()
+                        # Remover tempos para que sejam redefinidos
+                        del self.tempo_falha
+                        del self.tempo_recuperacao
 
     def enviar_heartbeats(self):
         for par in self.pares:
@@ -54,7 +60,7 @@ class No:
         self.estado = 'Candidato'
         self.termo_atual += 1
         self.votou_para = self.id_no
-        self.votos_recebidos = 1  
+        self.votos_recebidos = 1  # Vota em si mesmo
         self.temporizador_eleicao = self.redefinir_temporizador_eleicao()
         print(f"Nó {self.id_no} iniciando eleição para o termo {self.termo_atual}")
 
@@ -69,7 +75,7 @@ class No:
 
     def tratar_mensagem(self, msg):
         if not self.ativo:
-            return  
+            return  # Ignora mensagens se o nó está falho
         with self.trava:
             if msg.termo > self.termo_atual:
                 self.termo_atual = msg.termo
@@ -109,16 +115,16 @@ class No:
             self.temporizador_eleicao = self.redefinir_temporizador_eleicao()
             print(f"Nó {self.id_no} recebeu heartbeat do líder {msg.id_remetente} para o termo {msg.termo}")
         else:
-           
+            # Ignora mensagens com termos menores
             pass
 
     def simular_falha(self):
         self.estado = 'Falho'
         self.ativo = False
-        print(f"Nó {self.id_no} falhou.")
+        print(f"Nó {self.id_no} falhou no tempo {time.time():.2f}. Próxima recuperação em {self.tempo_recuperacao - time.time():.2f} segundos.")
 
     def recuperar(self):
         self.estado = 'Seguidor'
         self.temporizador_eleicao = self.redefinir_temporizador_eleicao()
         self.ativo = True
-        print(f"Nó {self.id_no} se recuperou.")
+        print(f"Nó {self.id_no} se recuperou no tempo {time.time():.2f}.")
