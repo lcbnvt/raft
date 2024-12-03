@@ -143,6 +143,7 @@ Após se tornar líder, o nó começa a enviar mensagens de `AdicionarEntradas` 
 - Um novo líder é eleito entre os nós restantes.
 - O sistema continua operando com o novo líder.
 
+```python
 def executar(self):
     while True:
         time.sleep(0.1)
@@ -155,4 +156,5 @@ def executar(self):
                 elif tempo_atual >= self.falha_programada:
                     self.simular_falha()
                     continue
+```
 
